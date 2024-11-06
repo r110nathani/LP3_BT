@@ -1,0 +1,32 @@
+
+pragma solidity ^0.8.0;
+
+contract Bank{
+    uint256 balance ;
+    address public account_owner;
+
+    constructor()
+    {
+        account_owner = msg.sender;
+    }
+
+    function deposit() public payable
+    {
+        require(account_owner == msg.sender , "You are not the account owner hence not authorised to deposit money");
+        require(msg.value > 0 , "The amount to be deposited must be greater than zero");
+        balance += msg.value;
+    }
+
+    function withdraw() public payable
+    {
+        require(account_owner == msg.sender , "You are not the account owner hence not authorised to withdraw money");
+        require(msg.value > 0 , "The amount to be deposited must be greater than zero");
+        balance -= msg.value;
+    }
+
+    function show_balance() public view returns(uint256)
+    {
+        require(account_owner == msg.sender , "You are not the account owner hence not authorised to know balance money");
+        return balance;
+    }
+}
