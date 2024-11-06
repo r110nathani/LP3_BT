@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+contract Student_data{
+
+    struct Student
+    {
+        uint256 roll_num;
+        string name;
+    }
+
+    Student[] public student_arr;
+
+    function addStudent(uint roll , string memory name) public {
+        for(uint i = 0 ; i<student_arr.length ; i++)
+        {
+            if(student_arr[i].roll_num == roll)
+            {
+                revert("Student with same roll number exists : ");
+            }
+        }
+
+        student_arr.push(Student(roll,name));
+    }
+
+    function Length() public view returns(uint)
+    {
+        return  student_arr.length;
+    }
+
+    function display() public view returns(Student[] memory) {
+        return student_arr;
+    }
+
+}
